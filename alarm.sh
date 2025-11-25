@@ -76,12 +76,15 @@ alarm() {
             target_epoch=$(date -d "tomorrow $target_time" +%s)
         fi
        
-        #sleep_duration=$((target_epoch - current_epoch))
-	sleep_duration=$(time_to_seconds "$countdown_arg") 
+        sleep_duration=$((target_epoch - current_epoch))
+	#sleep_duration=$(time_to_seconds "$countdown_arg") 
+
        
     elif [[ "$mode" == "countdown" ]]; then
-        sleep_duration="$countdown_arg"
+	sleep_duration=$(time_to_seconds "$countdown_arg") 
+        #sleep_duration="$countdown_arg"
     else
+	echo "$total" >&2
         echo "Usage: alarm {t|-t} HH:MM [{d|-d} \"description\"]"
         echo "       alarm {c|-c} SECONDS [{d|-d} \"description\"]"
 	echo "Usage: alarm {t|-t} HH:MM [{d|-d} \"description\"]"
